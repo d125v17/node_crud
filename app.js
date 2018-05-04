@@ -3,9 +3,12 @@ const app = express();
 const users = require('./routes/users');
 const pages = require('./routes/pages');
 const exphbs  = require('express-handlebars');
+const bodyParser = require("body-parser");
 
-app.engine('handlebars', exphbs({extname: '.handlebars'}));
-app.set('view engine', 'handlebars');
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.engine('hbs', exphbs({extname: '.hbs'}));
+app.set('view engine', 'hbs');
 app.use(express.static('./views/public'));
 
 
