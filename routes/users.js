@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/user');
-
+var multipart = require('connect-multiparty');
+var multiMiddle = multipart();
 
 router.get('/', function(req, res) {
   res.send('users home page');
@@ -26,19 +27,9 @@ router.get('/login', function(req, res) {
     })
 });
 
-router.post('/register', function(req, res) {
-    // let name = req.body.name;
-    console.log('body=', req.query);
+router.post('/register', multiMiddle, function(req, res) {
+    console.log('body=', req.body);
     let name = req.body.name;
-    //
-        let body = '';
-        req.on('data', chunk => {
-            body += chunk.toString(); // convert Buffer to string
-        });
-        req.on('end', () => {
-            console.log('OTHER WAY', body);
-        });
-    //
     res.json({
         message : 'register',
         name : name
