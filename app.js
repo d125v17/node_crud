@@ -5,6 +5,7 @@ const pages = require('./routes/pages');
 const exphbs  = require('express-handlebars');
 const bodyParser = require('body-parser');
 const HttpError = require('http-errors');
+const logger = require('./log/logger');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.engine('hbs', exphbs({extname: '.hbs'}));

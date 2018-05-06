@@ -1,7 +1,9 @@
 const express = require('express');
 const router = express.Router();
+const logger = require('../log/logger');
 
 router.get('/', function(req, res) {
+    logger.error('pages ERROR');
     res.render('index', {layout: 'main', title: 'start page'});
 });
 
