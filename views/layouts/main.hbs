@@ -14,13 +14,20 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
             <a class="nav-item nav-link active" href="/">Home <span class="sr-only">(current)</span></a>
-            <a class="nav-item nav-link" href="/login">Login</a>
-            <a class="nav-item nav-link" href="/register">Register</a>
+
+            {{#if auth}}
+                <a class="nav-item nav-link" href="/cabinet">Cabinet</a>
+                <a class="nav-item nav-link" href="/users/logout" onclick="logout(event)">Logout</a>
+            {{else}}
+                <a class="nav-item nav-link" href="/login">Login</a>
+                <a class="nav-item nav-link" href="/register">Register</a>
+            {{/if}}
             </div>
         </div>
     </nav>
     <main>
         {{{body}}}
     </main>
+    <script src="js/main.js"></script>
 </body>
 </html>

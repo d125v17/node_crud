@@ -6,13 +6,31 @@ const exphbs  = require('express-handlebars');
 const bodyParser = require('body-parser');
 const HttpError = require('http-errors');
 const logger = require('./log/logger');
+const session = require('express-session');
+const cookeParser =  require('cookie-parser');
 
+app.use(cookeParser());
+app.use(session({
+    name:'CRUD_session',
+    secret: 'secret cat',
+    resave: true,
+    saveUninitialized: false,
+    cookie: {
+        httpOnly: false, 
+        secure: false,
+        maxAge: 1000000000,
+    } 
+  }));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.engine('hbs', exphbs({extname: '.hbs'}));
 app.set('view engine', 'hbs');
 app.use(express.static('./views/public'));
 app.use('/', pages);
 app.use('/users', users);
+
+app.get('*', function(req, res){
+    res.render('page404', {layout: false, title: 'cabinet'});
+});
 
 app.use(function onerror(err, req, res, next) {
     if (err.status > 0) {

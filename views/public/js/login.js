@@ -1,20 +1,21 @@
-function register(event) {
+function login(event) {
     event.preventDefault();
-    var form = document.getElementById('reg-form');
+    var form = document.getElementById('login-form');
     var formData    = new FormData(form);
-    fetch("users/register",
+    fetch("users/login",
     {
         method: "POST",
-        body: formData
+        body: formData,
+        credentials: 'same-origin',
     })
     .then(function(res){ return res.text(); })
     .then(function(json){
         let data = JSON.parse(json);
         console.log('data=', data);
         if (!data.error) {
-            window.location = '/login';
+            window.location = '/cabinet';
         } else {
-            var alertLog = document.getElementById('register-alert');
+            var alertLog = document.getElementById('login-alert');
             alertLog.textContent = data.error;
             alertLog.style.display = 'block';
         }

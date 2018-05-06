@@ -1,5 +1,6 @@
 <h1 class="h2">Register page</h1>
 <form action="/register" method="POST" onsubmit="register(event)" id="reg-form">
+  <div class="alert alert-danger" role="alert" style="display:none" id="register-alert"></div>
   <div class="form-group">
     <label for="inputName">Name</label>
     <input type="text" class="form-control" id="inputName" placeholder="Enter name" name="name">
