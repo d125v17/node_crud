@@ -8,10 +8,8 @@ services:
     working_dir: /var/www
     volumes:
     - ./api:/var/www/api
-    environment:
-    - "DB_PORT=3306"
-    - "DB_HOST=database"
-    - "XDG_RUNTIME_DIR=/run/user/`id -u`"
+    env_file:
+    - .env
     ports:
     - 8083:8083
     depends_on:
@@ -24,11 +22,8 @@ services:
     image: mysql:latest
     volumes:
     - ./api/migrations:/migrations
-    environment:
-    - "MYSQL_DATABASE=node_crud"
-    - "MYSQL_USER=crud"
-    - "MYSQL_PASSWORD=crud_db"
-    - "MYSQL_ROOT_PASSWORD=crud_db"
+    env_file:
+    - .env
     ports:
         - "33062:3306"
 

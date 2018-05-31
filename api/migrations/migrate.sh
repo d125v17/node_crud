@@ -1,1 +1,1 @@
-mysql -ucrud -pcrud_db node_crud <users.sql
+mysql -u$MYSQL_USER -p$MYSQL_PASSWORD $MYSQL_DATABASE <users.sql
