@@ -1,0 +1,41 @@
+version: '2'
+services:
+
+  api:
+    build:
+      context: ./
+      dockerfile: app.dockerfile
+    working_dir: /var/www
+    volumes:
+    - ./api:/var/www/api
+    environment:
+    - "DB_PORT=3306"
+    - "DB_HOST=database"
+    - "XDG_RUNTIME_DIR=/run/user/`id -u`"
+    ports:
+    - 8083:8083
+    depends_on:
+      - redis
+    #command: node -e "require('http').createServer().listen(1993,()=>{});"
+    command: bash -c "cd api && npm start"
+
+  # The Database
+  database:
+    image: mysql:latest
+    volumes:
+    - ./api/migrations:/migrations
+    environment:
+    - "MYSQL_DATABASE=node_crud"
+    - "MYSQL_USER=crud"
+    - "MYSQL_PASSWORD=crud_db"
+    - "MYSQL_ROOT_PASSWORD=crud_db"
+    ports:
+        - "33062:3306"
+
+  redis:
+    image: redis:4.0.8
+    ports:
+        - "63791:6379"
+  
+# volumes:
+#   dbdata:

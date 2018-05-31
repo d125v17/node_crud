@@ -1,0 +1,1 @@
+mysql -ucrud -pcrud_db node_crud <users.sql
